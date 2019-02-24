@@ -1,0 +1,38 @@
+
+		<div ng-controller="maincontrol">
+	        <div class="chat-container">
+
+	            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+	            <!-- Chat Messages -->
+	            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+	            <div class="chat-messages">
+	                <div class="chat-header">
+	                    <div class="chat-heading">
+	                         <h1><img src="uploads/eae.png"></img>E aê!</h1>
+	                         <hr class="small"></hr>
+	                    </div>
+	                </div>
+	                <div ng-repeat="messagem in mensagem_enviada track by $index">
+	                    <div class="sent-message">
+	                        <span class="username">User 2:</span>
+	                        {{ messagem }}
+	                    </div>
+	                </div>
+	                <div ng-repeat="mensagem in mensagem_recebida track by $index">
+	                    <div class="receveid-message">
+	                        <span class="username" >User 1:</span>
+	                        {{ mensagem }}
+	                    </div>
+	                </div>
+	                    <div class="clear"></div>
+	            </div>
+
+	            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+	            <!-- User Input -->
+	            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+	            <form ng-submit="send()" class="chat-input">
+	                <input type="text" ng-model="enviada"/>
+	            </form>
+
+	        </div>
+	    </div>

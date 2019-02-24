@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="eae">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="E aê! Site de encontros dentro da web!">
+		<meta name="author" content="Roberto R. Américo">
+		
+		<title>E aê!</title>
+		
+		
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="theme.css" type="text/css"> 	
+		<link rel="stylesheet" href="chat.css" type="text/css">   
+	<!-- Header -->
+	</head>
+
+	<body style="background-color: #f8f8f8" ng-controller="maincontrol">
+		<div id="main" ng-show="isShow">
+			<header class="intro-header" >
+				<div class="container">
+					<div class="row">
+						<div class="site-heading">
+							<h1><img src="uploads/eae.png">E aê!</h1>
+							<hr class="small">
+							<span class="subheading">Encontre novas pessoas em conversas aleatórias,
+							<br>
+							e tudo que pedimos é apenas um <i>nickname</i>!</span>
+						</div>
+					</div>
+				</div>
+			</header>  
+			
+			<!--Section -->
+			<section id="container">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-5 col-sm-6">
+							<div class="clearfix"></div>
+							<h2 class="section-heading"> Quer saber quem está do outro lado? Diga um <strong><i>E aê!</i></strong> e descubra!</h2>
+							<p class="lead">Usamos o aleatório do universo para formar nossa conversas! :p <br> 
+							Além disso priorizamos sua segurança, damos preferência ao seu anonimato!</p>
+						</div>
+						<div class="col-lg-5 col-lg-offset-2 col-sm-6">
+							<form name="nickForm">
+								<input type="text" class="form-control" placeholder="Digite seu nickname." style="border-radius: 6px; height: 45px" ng-model="nickname" ng-required="true" ng-pattern="/^\w{1,20}$/" name="nick" maxlength="20"/>
+							</form>
+							<button ng-disabled="nickForm.$invalid" class="btn btn-default btn-lg" style="margin-top:2px; padding:10px 10px" ng-click="start(nickname)"><span class="network-name"><b>Iniciar!*</b></span></button>
+							<div style="font-family:'Helvetica Neue'; font-size: 12px;" ng-show="nickForm.nick.$error.pattern" class="alert alert-danger">O nickname deve conter apenas numeros, letras e '_', com no maximo 20 caracteres.</div>
+							<div style="font-family:'Helvetica Neue'; font-size: 12px;" ng-show="no_valid && nickForm.$pristine" class="alert alert-danger">Ja existe um usuario online com esse nick</div>
+							<p style="font-family:'Helvetica Neue'; font-size: 12px;"> *Ao clicar no botão você aceita nossos termos. Você deve ter mais de 18, menores apenas sob supervisão de algum responsável.
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="diviser"></div>
+				</div>
+				<div ng-include="'termo.html'"></div>
+				
+			</section>
+			
+			<!-- Footer -->
+	    <footer>
+	        <div class="container">
+	            <div class="row">
+	                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" style="text-align:center">
+	                    <br>
+						<p class="copyright text-muted">Roberto R. Américo &copy; E aê! v0.3, 2017 </p>
+	                </div>
+	            </div>
+	        </div>
+	    </footer>
+	</div>
+	<div id="chat" ng-show="!isShow">
+	        <div class="chat-container">
+
+	            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+	            <!-- Chat Messages -->
+	            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+	            
+				
+				<div class="chat-heading">
+					<div class="chat-top"></div>
+					<div class="chat-home collapse navbar-collapse"><button class="btn btn-default btn-lg" ng-click="reload()">Home</button></div>
+					<div class="chat-next collapse navbar-collapse"></div>
+					<div class="chat-head"><img src="uploads/eae.png"/> E aê!</div>
+					
+					<hr class="small"/>
+					<div class="inf">E aê <b><i>{{nickname}}</i></b>{{information}}</div>
+				</div>
+				<div class="chat-messages">
+					<div ng-repeat="messagem in mensagens track by $index">
+						<div class="message" ng-class="{sent: messagem.user == nickname}">
+							<span class="username">{{messagem.user}}:</span>
+								{{ messagem.data }}
+						</div>
+						<div class="clear"></div>
+					</div>
+	            </div>
+
+	            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+	            <!-- User Input -->
+	            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+	     
+				<form ng-submit="send()" class="chat-input">
+					<input type="text" ng-model="enviada"/>
+				</form>
+
+	        </div>
+	</div>
+	<!-- Angular -->
+	<script type="text/javascript" src="angular/angular.min.js"></script>
+	<script type="text/javascript" src="angular/app.js"></script>
+	
+	<!-- Socket.io -->
+	<script src="socket.io/socket.io.js"></script>
+	
+	</body>
+</html>
